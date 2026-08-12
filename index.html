@@ -19,8 +19,13 @@
     />
 
     <!-- The hero plate is the LCP element; preload the variant that will actually be used. -->
-    <link rel="preload" as="image" href="/assets/hero-bg-mobile.jpg" media="(max-width: 767px)" />
-    <link rel="preload" as="image" href="/assets/hero-bg-desktop.jpg" media="(min-width: 768px)" />
+    <link rel="preload" as="image" href="/assets/hero-bg-mobile.jpg" media="(orientation: portrait)" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-bg-desktop.jpg"
+      media="(orientation: landscape)"
+    />
   </head>
   <body>
     <div id="root"></div>

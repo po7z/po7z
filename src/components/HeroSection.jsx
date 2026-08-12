@@ -42,18 +42,23 @@ export default function HeroSection({
   return (
     <section
       aria-labelledby="hero-heading"
-      className={`relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-stage-950 ${className}`}
+      className={`relative isolate flex min-h-screen w-full flex-col overflow-hidden bg-stage-950 supports-[min-height:100svh]:min-h-svh ${className}`}
     >
-      {/* ---------- Stage plate: mobile 9:16 swapped for desktop 16:9 ---------- */}
+      {/* ---------- Stage plate ----------
+          Orientation drives the swap rather than width alone: a portrait tablet
+          at 820px wide wants the tall crop, not a hard centre-cut of the wide
+          one. The <img> src is the portrait plate so browsers without <picture>
+          support still get a usable frame. */}
       <picture>
-        <source media="(min-width: 768px)" srcSet={desktopImage} />
+        <source media="(orientation: landscape)" srcSet={desktopImage} />
+        <source media="(orientation: portrait)" srcSet={mobileImage} />
         <img
           src={mobileImage}
           alt=""
           aria-hidden="true"
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 -z-30 h-full w-full bg-stage-950 bg-cover bg-center object-cover object-center"
+          className="absolute inset-0 -z-30 h-full w-full bg-stage-950 object-cover object-center [filter:contrast(1.06)_saturate(1.08)]"
         />
       </picture>
 
@@ -65,12 +70,13 @@ export default function HeroSection({
       {/* Warm ember wash so the amber grade survives the darkening overlay. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-[radial-gradient(120%_90%_at_50%_115%,rgba(74,18,8,0.85)_0%,rgba(74,18,8,0.35)_38%,transparent_70%)] mix-blend-screen"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(115%_80%_at_50%_118%,rgba(74,18,8,0.70)_0%,rgba(74,18,8,0.28)_40%,transparent_72%)] mix-blend-screen"
       />
-      {/* Vignette keeps focus centre-stage and lifts text contrast at the edges. */}
+      {/* Vignette keeps focus centre-stage and lifts text contrast at the edges.
+          Kept light through the lower third so the microphone stays legible. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-[radial-gradient(75%_60%_at_50%_38%,transparent_0%,rgba(16,7,4,0.55)_72%,rgba(16,7,4,0.92)_100%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(80%_68%_at_50%_42%,transparent_0%,rgba(16,7,4,0.32)_70%,rgba(16,7,4,0.85)_100%)]"
       />
       {/* Top-down spotlight cone. */}
       <div
@@ -82,14 +88,20 @@ export default function HeroSection({
         aria-hidden="true"
         className="stage-dust absolute inset-0 -z-10 animate-dust-drift opacity-70"
       />
-      {/* Local scrim directly behind the wordmark for guaranteed AA contrast. */}
+      {/* Local scrim directly behind the wordmark for guaranteed AA contrast.
+          Stops above the microphone so the subject keeps its glow. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-[14%] -z-10 h-[58%] bg-[radial-gradient(60%_50%_at_50%_50%,rgba(16,7,4,0.72)_0%,rgba(16,7,4,0.35)_55%,transparent_100%)]"
+        className="absolute inset-x-0 top-[8%] -z-10 h-[54%] bg-[radial-gradient(62%_50%_at_50%_50%,rgba(16,7,4,0.62)_0%,rgba(16,7,4,0.3)_58%,transparent_100%)]"
+      />
+      {/* Softer scrim under the supporting copy, which crosses the microphone. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-[54%] -z-10 h-[32%] bg-[radial-gradient(48%_58%_at_50%_50%,rgba(16,7,4,0.5)_0%,rgba(16,7,4,0.22)_60%,transparent_100%)]"
       />
 
       {/* ---------- Content ---------- */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center px-6 pt-28 pb-12 text-center sm:px-8 sm:pt-32 lg:pt-36">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 pt-24 pb-10 text-center short:pt-20 short:pb-6 sm:px-8 sm:pt-28 sm:pb-12 lg:pt-32">
         <p
           className="animate-rise-in flex items-center gap-4 font-display text-[0.7rem] leading-relaxed font-semibold tracking-[0.28em] text-gold-200 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] sm:gap-6 sm:text-sm sm:tracking-[0.34em]"
           style={{ animationDelay: '80ms' }}
@@ -101,7 +113,7 @@ export default function HeroSection({
 
         <h1
           id="hero-heading"
-          className="animate-rise-in gold-foil-shadow mt-8 font-display leading-[0.86] font-black tracking-[0.02em] uppercase sm:mt-10"
+          className="animate-rise-in gold-foil-shadow mt-6 font-display leading-[0.86] font-black tracking-[0.02em] uppercase short:mt-4 sm:mt-8"
           style={{ animationDelay: '200ms' }}
         >
           {title.map((line, index) => (
@@ -119,7 +131,7 @@ export default function HeroSection({
         </h1>
 
         <p
-          className="animate-rise-in mt-7 flex items-center gap-5 font-display text-sm font-semibold tracking-[0.42em] text-spot-100 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:mt-8 sm:text-base sm:tracking-[0.55em]"
+          className="animate-rise-in mt-6 flex items-center gap-5 short:mt-4 font-display text-sm font-semibold tracking-[0.42em] text-spot-100 uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:mt-7 sm:text-base sm:tracking-[0.55em]"
           style={{ animationDelay: '320ms' }}
         >
           <span aria-hidden="true" className="h-px w-8 bg-gradient-to-r from-transparent to-gold-500 sm:w-14" />
@@ -129,7 +141,7 @@ export default function HeroSection({
 
         {description ? (
           <p
-            className="animate-rise-in mt-7 max-w-xl text-balance text-base leading-relaxed text-spot-100/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] sm:text-lg"
+            className="animate-rise-in mt-6 max-w-xl text-balance text-base leading-relaxed text-spot-100 drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] short:mt-4 sm:text-lg"
             style={{ animationDelay: '420ms' }}
           >
             {description}
@@ -137,7 +149,7 @@ export default function HeroSection({
         ) : null}
 
         <div
-          className="animate-rise-in mt-10 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row sm:gap-5"
+          className="animate-rise-in mt-8 flex w-full flex-col items-center justify-center gap-4 short:mt-6 short:gap-3 sm:w-auto sm:flex-row sm:gap-5"
           style={{ animationDelay: '520ms' }}
         >
           <a
@@ -159,7 +171,7 @@ export default function HeroSection({
       </div>
 
       {/* ---------- Footer strip ---------- */}
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-6 px-6 pb-8 sm:px-8 sm:pb-10">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-5 px-6 pb-7 short:gap-3 short:pb-4 sm:px-8 sm:pb-10">
         <a
           href={domainHref}
           className="rounded-sm text-[0.7rem] font-semibold tracking-[0.34em] text-spot-100/85 uppercase drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] transition-colors hover:text-gold-200 focus-visible:ring-2 focus-visible:ring-gold-200 focus-visible:ring-offset-4 focus-visible:ring-offset-stage-950 focus-visible:outline-none sm:text-xs sm:tracking-[0.42em]"
@@ -168,7 +180,7 @@ export default function HeroSection({
         </a>
         <span
           aria-hidden="true"
-          className="block h-9 w-px animate-scroll-cue bg-gradient-to-b from-gold-500/80 to-transparent"
+          className="block h-9 w-px animate-scroll-cue short:hidden bg-gradient-to-b from-gold-500/80 to-transparent"
         />
       </div>
     </section>

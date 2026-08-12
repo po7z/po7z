@@ -87,6 +87,10 @@
   }
 }
 
+/* Short viewports (landscape phones, small laptops) trade padding for fit so
+   the hero still resolves inside one screen. */
+@custom-variant short (@media (max-height: 730px));
+
 @layer base {
   html {
     scroll-behavior: smooth;
