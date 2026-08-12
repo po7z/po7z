@@ -123,12 +123,13 @@ export function HeroSection({
             {...fadeUp(0.32)}
             className="mt-4 font-display text-sm font-semibold uppercase tracking-[0.45em] text-gold-light sm:mt-5 sm:text-base sm:tracking-[0.55em]"
           >
-            Season 1
+            Season{' '}
+            <span className="font-sans tracking-normal tabular-nums">1</span>
           </motion.p>
 
           <motion.p
             {...fadeUp(0.42)}
-            className="mt-5 max-w-md text-sm leading-relaxed text-spotlight/80 sm:mt-6 sm:text-base"
+            className="mt-4 max-w-md text-sm leading-relaxed text-spotlight/80 sm:mt-6 sm:text-base"
           >
             Lift your voice for His glory — registrations open for youth ages
             12–18 across Saudi Arabia.
@@ -136,7 +137,7 @@ export function HeroSection({
 
           <motion.div
             {...fadeUp(0.55)}
-            className="mt-8 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4"
+            className="mt-7 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-4"
           >
             <a
               href={registerHref}
