@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const HERO_IMAGES = {
   desktop: "/assets/hero-bg-desktop.jpg",
   mobile: "/assets/hero-bg-mobile.jpg",
@@ -7,6 +9,8 @@ export default function HeroSection({
   registerHref = "#register",
   auditionsHref = "#auditions",
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <section className="hero" aria-labelledby="hero-title">
       <picture className="hero__media" aria-hidden="true">
@@ -30,10 +34,26 @@ export default function HeroSection({
           TKV
           <span>Season 1</span>
         </a>
-        <nav className="hero__nav" aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#format">Competition</a>
-          <a href="#judges">Judges</a>
+        <button
+          className="hero__menu-button"
+          type="button"
+          aria-expanded={isMenuOpen}
+          aria-controls="hero-navigation"
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav
+          className={`hero__nav${isMenuOpen ? " hero__nav--open" : ""}`}
+          id="hero-navigation"
+          aria-label="Primary navigation"
+        >
+          <a href="#about" onClick={() => setIsMenuOpen(false)}>About</a>
+          <a href="#format" onClick={() => setIsMenuOpen(false)}>Competition</a>
+          <a href="#judges" onClick={() => setIsMenuOpen(false)}>Judges</a>
         </nav>
       </header>
 
