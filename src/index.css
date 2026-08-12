@@ -1,0 +1,160 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — "The Kingdom Voices" luxury stage theme.
+   Exposed to Tailwind v4 as utilities, e.g. bg-stage-950 / text-gold-200 /
+   font-display / animate-gold-shimmer.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Stage & ember */
+  --color-stage-950: #100704;
+  --color-stage-900: #1a0b06;
+  --color-ember-900: #4a1208;
+  --color-ember-700: #7a2210;
+
+  /* Spotlight */
+  --color-spot-100: #fff3e0;
+
+  /* Gold foil */
+  --color-gold-200: #f3e5ab;
+  --color-gold-500: #d4af37;
+  --color-gold-700: #aa771c;
+
+  --font-display: 'Cinzel', 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --animate-gold-shimmer: gold-shimmer 9s ease-in-out infinite;
+  --animate-beam-sway: beam-sway 14s ease-in-out infinite alternate;
+  --animate-dust-drift: dust-drift 34s linear infinite;
+  --animate-rise-in: rise-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-scroll-cue: scroll-cue 2.4s ease-in-out infinite;
+
+  @keyframes gold-shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes beam-sway {
+    from {
+      opacity: 0.55;
+      transform: translate3d(-2%, 0, 0) scale(1);
+    }
+    to {
+      opacity: 0.85;
+      transform: translate3d(2%, 0, 0) scale(1.06);
+    }
+  }
+
+  @keyframes dust-drift {
+    from {
+      background-position:
+        0 0,
+        0 0;
+    }
+    to {
+      background-position:
+        -240px -600px,
+        180px -420px;
+    }
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.75rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes scroll-cue {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(0.4rem);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-stage-950);
+    color: var(--color-spot-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-stage-950);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Custom utilities
+--------------------------------------------------------------------------- */
+
+/* Metallic gold foil text. Paired with `animate-gold-shimmer` the highlight
+   band sweeps across the letterforms. */
+@utility text-gold-foil {
+  background-image: linear-gradient(
+    100deg,
+    #8a5a12 0%,
+    var(--color-gold-700) 14%,
+    var(--color-gold-500) 30%,
+    #fffaf0 44%,
+    var(--color-gold-200) 52%,
+    var(--color-gold-500) 66%,
+    var(--color-gold-700) 82%,
+    #8a5a12 100%
+  );
+  background-size: 250% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Drop shadows must be applied via `filter` (not `text-shadow`) because the
+   glyphs themselves are transparent when the gradient is clipped to the text. */
+@utility gold-foil-shadow {
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 0 34px rgba(212, 175, 55, 0.28));
+}
+
+/* Floating particle dust caught in the spotlights. */
+@utility stage-dust {
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 24%, rgba(255, 243, 224, 0.55), transparent 60%),
+    radial-gradient(1px 1px at 72% 62%, rgba(212, 175, 55, 0.45), transparent 60%);
+  background-size:
+    360px 420px,
+    260px 320px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
