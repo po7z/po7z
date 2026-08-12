@@ -1,0 +1,135 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Cinzel', 'Times New Roman', serif;
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+  --color-stage: #100704;
+  --color-amber-deep: #4a1208;
+  --color-spotlight: #fff3e0;
+  --color-gold: #d4af37;
+  --color-gold-light: #f3e5ab;
+  --color-gold-mid: #aa771c;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100svh;
+    font-family: var(--font-sans);
+    color: var(--color-spotlight);
+    background-color: var(--color-stage);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-gold-metallic {
+    background-image: linear-gradient(
+      115deg,
+      #aa771c 0%,
+      #f3e5ab 18%,
+      #d4af37 36%,
+      #fff3e0 50%,
+      #d4af37 64%,
+      #f3e5ab 82%,
+      #aa771c 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.65))
+      drop-shadow(0 0 28px rgba(212, 175, 55, 0.28));
+    animation: gold-shimmer 7s ease-in-out infinite;
+  }
+
+  .hero-overlay {
+    background-image: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.6) 0%,
+      transparent 42%,
+      #100704 100%
+    );
+  }
+
+  .hero-vignette {
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 35%, transparent 30%, rgb(16 7 4 / 0.55) 100%),
+      radial-gradient(ellipse 120% 70% at 50% 100%, rgb(16 7 4 / 0.85) 0%, transparent 55%);
+  }
+}
+
+@keyframes gold-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes particle-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate3d(8px, -18px, 0);
+    opacity: 0.55;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gold-metallic {
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  .hero-particle,
+  .hero-glow {
+    animation: none !important;
+  }
+}
