@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-stage-dark: #100704;
+  --color-amber-deep: #4a1208;
+  --color-amber-warm: #2a0a05;
+  --color-gold: #d4af37;
+  --color-gold-light: #f3e5ab;
+  --color-gold-dark: #aa771c;
+  --color-spotlight: #fff3e0;
+
+  --font-display: 'Cinzel', Georgia, 'Times New Roman', serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: var(--font-body);
+    background-color: var(--color-stage-dark);
+    color: var(--color-spotlight);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gold-shimmer {
+    background: linear-gradient(
+      180deg,
+      var(--color-gold-light) 0%,
+      var(--color-gold) 35%,
+      var(--color-gold-dark) 65%,
+      var(--color-gold) 85%,
+      var(--color-gold-light) 100%
+    );
+    background-size: 100% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gold-shimmer 6s ease-in-out infinite;
+  }
+
+  .hero-spotlight {
+    background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(255, 243, 224, 0.18) 0%,
+      rgba(212, 175, 55, 0.08) 30%,
+      transparent 70%
+    );
+  }
+
+  .hero-vignette {
+    background: radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      transparent 40%,
+      rgba(16, 7, 4, 0.6) 100%
+    );
+  }
+}
+
+@keyframes gold-shimmer {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+@keyframes float-dust {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes spotlight-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
